@@ -8,7 +8,7 @@
 <style>
   body {
     background-color: #0c0f12;
-    margin: 0;
+    margin: 0;;
   }
   #canvas {
     position: fixed;
@@ -55,71 +55,61 @@
     transform: scale(1.2);
   }
   .video-container {
-    position: absolute;
-    top: 250px;
-    right: 50px;
+    position: fixed; /* Change position to fixed */
+    top: calc(50% + 50px);
+    left: calc(50% - 400px);
     border-radius: 20px;
     overflow: hidden;
     z-index: 1;
-  }
+    width: 800px;
+    height: 400;
+}
   .video-container iframe {
     width: 800px;
-    height: 450px;
+    height: 400px;
   }
   .blur-background {
-    position: absolute;
+    position: fixed; /* Change position to fixed */
     border-radius: 20px;
-    top: 300;
-    right: 50;
+    top: 250px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 50%;
-    height: 40%;
+    height: 25%;
     backdrop-filter: blur(10px);
     z-index: -1;
-  }
-  .centered-text {
-    text-align: (.blur-background: right);
+    color: aqua;
+}
+.centered-text {
+    position: fixed; /* Change position to fixed */
+    text-align: center;
     color: white;
     font-size: 24px;
     font-family: Arial, sans-serif;
-    top: (.blur-background + 50);
+    top: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
-  }
-
-  @media screen and (max-width: 1700px) {
-    .container {
-      margin-top: 20px;
-    }
-    .blur-background {
-      position: relative;
-      width: 100%;
-      margin-top: 20px;
-    }
-    .centered-text {
-      margin-top: 20px;
-    }
-    .video-container {
-      position: static;
-      margin-top: 20px;
-    }
-  }
 </style>
 <meta property="og:title" content="PylaAI - Brawl Stars Mastery Farming">
-<meta property="og:image" content="https://www.youtube.com/watch?v=702i7MShBGw">
+<meta property="og:image" content="https://media.discordapp.net/attachments/1128697437461164103/1144200149124530226/3dgifmaker12463.gif?ex=6620e66d&amp;is=660e716d&amp;hm=1c800c6e1b371cc60378d7a3604dd4fdf5b82483fd63aab861841f01365eb4e4">
 </head>
 <body>
+  overflow-y: auto;
 <canvas id="canvas"></canvas>
 <div class="container">
   <h2>Download PylaAI for Brawl Stars</h2>
   <a href="https://download2284.mediafire.com/u9d1pj2zaccgpbZaEi8gqQU8TEVtc5mxel0lM-HoD6oqWqDOnopPkunUwbDDG5WoI__Q319MLhh7Zt36Ml7pxEzs_mCExPduVEaWP5EgE1ICTVHI7SFl7Tg6iSkkFyuv2K9uzYoePj-I9hXSKhFsViW0-zNS4VG_MWpdlXIYQU94/yy66w1v74s3gjs3/pyla.rar"           id="downloadButton" target="_blank"><button class="button">Download PylaAI</button></a>
 </div>
-<a href="https://discord.gg/RhrZfbkqqu" target="_blank"><img src="https://cdn.discordapp.com/attachments/1214288291445342249/1227023898491621396/discord_bigsur_new_1024x1024x32.png?ex=6626e60e&is=6614710e&hm=7c5a0622b0bb238807a75aee4ee2966bf2221f18b99c7c114a1f3ee65e74a489&" alt="Discord" style="position: fixed; top: 10px; left: 10px; width: 100px; height: 100px; z-index: 2;"></a>
+<a href="https://discord.gg/RhrZfbkqqu" target="_blank"><img src="https://static.wikia.nocookie.net/logopedia/images/d/d6/Discordmacosbigsur2021beta.png/revision/latest/scale-to-width-down/100?cb=20210525125816" alt="Discord" style="position: fixed; top: 10px; left: 10px; width: 100px; height: 100px; z-index: 2;"></a>
 <div class="video-container">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/702i7MShBGw" frameborder="0" allowfullscreen></iframe>
 </div>
 <div class="blur-background"></div>
   <div class="centered-text">
     <h1>‎ ‎ What is PylaAI ?</h1>
-    <p>‎ ‎ PylaAI is a AI that play brawl stars for you. It was created to farm mastery and not  <br>‎ ‎ trophies, it's easier to use brawlers that hit 100% like: Nita, Poco, Tara... <br><br> ‎ ‎ You can join the discord community to chat with other PylaAI users and developper!</p>
+    <p>Pyla is an A.I. that play brawl stars for you. It was created to farm mastery points, trophies and quests. It can boost monthly progression by 500% if you let it play overnight. Completly free! </p>
   </div>
 <script>
 const canvas = document.querySelector("#canvas");
