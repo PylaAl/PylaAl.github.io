@@ -17,38 +17,41 @@
           <div class="alignment-text">
               <h1 class="big">sigmas</h1>
               <div class="hover-person">
-                  <h1 class="animate__animated animate__fadeInDown"><a style="color: #000; text-decoration: none;" href="https://skibidi-oto.com/oto" target="_blank">oto</a></h1>
+                <h1 class="animate__animated animate__fadeInDown"><a style="color: #000; text-decoration: none;" href="https://skibidi-oto.com/oto">oto</a></h1>
+              </div>
+              <div class="hover-person-2">
+                <h1 class="animate__animated animate__fadeInDown"><a style="color: #000; text-decoration: none;" href="https://skibidi-oto.com/hugoat">hugoat</a></h1>
               </div>
       
               <h1 class="small">Click for more info</h1>
           </div>
       </div>
   </div>
-<script>
-  (function () {
-    const hoaAudio = document.getElementById('gst-audio');
+	<script>
+		(function () {
+			const hoaAudio = document.getElementById('gst-audio');
 
-    function catchHandler() {
-      let inputListener;
-      inputListener = function () {
-        hoaAudio.play();
-        document.removeEventListener('mousedown', inputListener);
-        document.removeEventListener('keydown', inputListener);
-      };
+			function catchHandler() {
+				let inputListener;
+				inputListener = function () {
+					hoaAudio.play();
+					document.removeEventListener('mousedown', inputListener);
+					document.removeEventListener('keydown', inputListener);
+				};
 
-      document.addEventListener('mousedown', inputListener);
-      document.addEventListener('keydown', inputListener);
-    }
+				document.addEventListener('mousedown', inputListener);
+				document.addEventListener('keydown', inputListener);
+			}
 
-    if (hoaAudio.readyState > 1) {
-      hoaAudio.play().catch(catchHandler);
-    } else {
-      hoaAudio.addEventListener('canplay', function () {
-        hoaAudio.play().catch(catchHandler);
-      });
-    }
-  })();
-</script>
+			if (hoaAudio.readyState > 1) {
+				hoaAudio.play().catch(catchHandler);
+			} else {
+				hoaAudio.addEventListener('canplay', function () {
+					hoaAudio.play().catch(catchHandler);
+				});
+			}
+		})();
+	</script>
   
 
 
