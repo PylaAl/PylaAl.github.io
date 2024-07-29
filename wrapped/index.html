@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résumé TikTok</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1E1E1E;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            background-color: #232323;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin-top: 50px;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+        button {
+            background-color: #333333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #333333;
+        }
+        h1, h2 {
+            font-size: 24px;
+            color: white;
+        }
+        .summary {
+            margin-top: 20px;
+            text-align: center;
+            color: white;
+        }
+        .summary p {
+            font-size: 32px;
+            margin: 20px 0;
+            color: white;
+        }
+        .navigation {
+            margin-top: 20px;
+            color: white;
+        }
+        .navigation button {
+            font-size: 20px;
+            width: 60px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="uploadSection">
+            <h1>Charger votre fichier JSON</h1>
+            <input type="file" id="fileInput" accept=".json">
+            <button id="uploadButton">Télécharger</button>
+        </div>
+        <div id="greeting" class="hidden">
+            <h1>Hello <span id="username">User</span></h1>
+            <button id="continueButton">Continuer</button>
+        </div>
+        <div id="summary" class="hidden">
+            <h2>Résumé de votre activité</h2>
+            <div class="summary">
+                <p id="summaryData"></p>
+            </div>
+            <div class="navigation">
+                <button id="prevButton">&#9664;</button>
+                <button id="nextButton">&#9654;</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const fileInput = document.getElementById("fileInput");
+            const uploadButton = document.getElementById("uploadButton");
+            const greetingSection = document.getElementById("greeting");
+            const uploadSection = document.getElementById("uploadSection");
+            const summarySection = document.getElementById("summary");
+            const summaryData = document.getElementById("summaryData");
+            const prevButton = document.getElementById("prevButton");
+            const nextButton = document.getElementById("nextButton");
+
+            let data;
+            let currentIndex = 0;
+
+            uploadButton.addEventListener("click", () => {
+                const file = fileInput.files[0];
+                if (!file) {
+                    alert("Veuillez sélectionner un fichier JSON.");
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        data = JSON.parse(event.target.result);
+                        displayGreeting();
+                    } catch (e) {
+                        alert("Erreur lors de la lecture du fichier JSON.");
+                    }
+                };
+                reader.readAsText(file);
+            });
+
+            function displayGreeting() {
+                if (data) {
+                    const username = data.Profile["Profile Information"].ProfileMap.userName;
+                    document.getElementById("username").textContent = username;
+                    uploadSection.classList.add("hidden");
+                    greetingSection.classList.remove("hidden");
+                }
+            }
+
+            document.getElementById("continueButton").addEventListener("click", () => {
+                displaySummary();
+            });
+
+            function displaySummary() {
+                if (data) {
+                    const activitySummary = data.Activity["Activity Summary"].ActivitySummaryMap;
+                    
+                    // Prepare the statistics to be displayed
+                    const stats = [
+                        `Vous avez commenté ${activitySummary.videosCommentedOnSinceAccountRegistration} vidéos`,
+                        `Vous avez partagé ${activitySummary.videosSharedSinceAccountRegistration} vidéos`,
+                        `Vous avez regardé ${activitySummary.videosWatchedToTheEndSinceAccountRegistration} vidéos jusqu'à la fin`,
+                        // You can add more statistics here if available
+                    ];
+
+                    function updateSummary(index) {
+                        summaryData.textContent = stats[index];
+                    }
+
+                    // Initial display
+                    updateSummary(currentIndex);
+
+                    // Navigation buttons
+                    prevButton.addEventListener("click", () => {
+                        currentIndex = (currentIndex > 0) ? currentIndex - 1 : stats.length - 1;
+                        updateSummary(currentIndex);
+                    });
+
+                    nextButton.addEventListener("click", () => {
+                        currentIndex = (currentIndex < stats.length - 1) ? currentIndex + 1 : 0;
+                        updateSummary(currentIndex);
+                    });
+
+                    greetingSection.classList.add("hidden");
+                    summarySection.classList.remove("hidden");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+    
